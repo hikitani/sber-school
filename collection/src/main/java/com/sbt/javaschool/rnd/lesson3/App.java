@@ -26,6 +26,20 @@ public class App {
 
         System.out.println("Task 4");
         System.out.println(getStrLineInReverse(str));
+
+        System.out.println("Task 5");
+        MyList list = new MyList();
+        list.addAll(getWords(str));
+        System.out.println("Normal:");
+        list.forEach((String word) -> System.out.print(String.format("%s ", word)));
+        System.out.println();
+        System.out.println("Reverse:");
+        for (String word : list) {
+            System.out.print(String.format("%s ", word));
+        }
+        System.out.println();
+
+
     }
 
     private static String fileToStr(File file) throws IOException{
