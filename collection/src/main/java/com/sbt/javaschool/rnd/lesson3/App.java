@@ -16,8 +16,10 @@ public class App {
         String str = fileToStr(file);
 
         System.out.println("Task 1");
-        System.out.println(String.format("Answer - %d\n", countOfUniqueWords(str)));
+        System.out.println(String.format("Count of unique words - %d\n", countOfUniqueWords(str)));
 
+        System.out.println("Task 2");
+        System.out.println(getSortedWords(str).toString());
     }
 
     private static String fileToStr(File file) throws IOException{
@@ -50,5 +52,10 @@ public class App {
         Set<String> uniqueWords = new HashSet<String>(getWords(str));
         return uniqueWords.size();
     }
+
+    private static TreeSet<String> getSortedWords(String str) {
+        TreeSet<String> sortedWords = new TreeSet<String>(new StringthLengthComparator());
+        sortedWords.addAll(getWords(str));
+        return sortedWords;
     }
 }
