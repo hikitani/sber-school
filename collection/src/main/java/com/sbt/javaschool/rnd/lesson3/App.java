@@ -1,13 +1,12 @@
 package com.sbt.javaschool.rnd.lesson3;
 
-import org.omg.CORBA.Environment;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 import java.io.*;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class App {
 
@@ -15,6 +14,9 @@ public class App {
         Path resourcesPath = Paths.get("collection/resources");
         File file = new File(resourcesPath.toAbsolutePath().toString() + "/text.txt");
         String str = fileToStr(file);
+
+        System.out.println("Task 1");
+        System.out.println(String.format("Answer - %d\n", countOfUniqueWords(str)));
 
     }
 
@@ -34,7 +36,19 @@ public class App {
         return res.toString();
     }
 
+    private static Collection<String> getWords(String str) {
+        List<String> words = new LinkedList<String>();
+        Pattern patternWord = Pattern.compile("\\w+");
+        Matcher matcher = patternWord.matcher(str);
+        while (matcher.find()) {
+            words.add(matcher.group());
+        }
+        return words;
+    }
+
     private static int countOfUniqueWords(String str){
-        throw new NotImplementedException();
+        Set<String> uniqueWords = new HashSet<String>(getWords(str));
+        return uniqueWords.size();
+    }
     }
 }
