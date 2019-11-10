@@ -56,7 +56,7 @@
               <manifest>
                 <addClasspath>true</addClasspath>
                 <classpathPrefix>src/main/</classpathPrefix>
-                <mainClass>com.sbt.javaschool.rnd.lesson2.App</mainClass>
+                <mainClass>com.sbt.javaschool.rnd.lesson3.App</mainClass>
               </manifest>
             </archive>
           </configuration>
