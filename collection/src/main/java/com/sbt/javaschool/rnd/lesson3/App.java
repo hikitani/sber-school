@@ -20,6 +20,9 @@ public class App {
 
         System.out.println("Task 2");
         System.out.println(getSortedWords(str).toString());
+
+        System.out.println("Task 3");
+        System.out.println(getFreqOfWords(str).toString());
     }
 
     private static String fileToStr(File file) throws IOException{
@@ -57,5 +60,13 @@ public class App {
         TreeSet<String> sortedWords = new TreeSet<String>(new StringthLengthComparator());
         sortedWords.addAll(getWords(str));
         return sortedWords;
+    }
+
+    private static Map<String, Integer> getFreqOfWords(String str) {
+        Map<String, Integer> freqOccurrenceOfWords = new HashMap<String, Integer>();
+        for (String word : getWords(str)) {
+            freqOccurrenceOfWords.put(word, (freqOccurrenceOfWords.containsKey(word)) ? freqOccurrenceOfWords.get(word) + 1 : 1);
+        }
+        return freqOccurrenceOfWords;
     }
 }
