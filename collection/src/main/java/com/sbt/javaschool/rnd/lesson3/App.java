@@ -23,6 +23,9 @@ public class App {
 
         System.out.println("Task 3");
         System.out.println(getFreqOfWords(str).toString());
+
+        System.out.println("Task 4");
+        System.out.println(getStrLineInReverse(str));
     }
 
     private static String fileToStr(File file) throws IOException{
@@ -68,5 +71,15 @@ public class App {
             freqOccurrenceOfWords.put(word, (freqOccurrenceOfWords.containsKey(word)) ? freqOccurrenceOfWords.get(word) + 1 : 1);
         }
         return freqOccurrenceOfWords;
+    }
+
+    private static String getStrLineInReverse(String str) {
+        StringBuilder reverseStr = new StringBuilder();
+        Deque<String> stack = new LinkedList<String>();
+        for (String strLine : str.split("\n")) {
+            stack.push(String.format("%s\n", strLine));
+        }
+        stack.forEach((String strLine) -> reverseStr.append(strLine));
+        return reverseStr.toString();
     }
 }
