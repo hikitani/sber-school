@@ -74,7 +74,7 @@ public class App {
     }
 
     private static TreeSet<String> getSortedWords(String str) {
-        TreeSet<String> sortedWords = new TreeSet<String>(new StringthLengthComparator());
+        TreeSet<String> sortedWords = new TreeSet<String>(new StringLengthComparator());
         sortedWords.addAll(getWords(str));
         return sortedWords;
     }
