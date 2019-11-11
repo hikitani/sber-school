@@ -39,7 +39,11 @@ public class App {
         }
         System.out.println();
 
-
+        System.out.println("Task 6");
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter the order in which the lines are displayed: ");
+        int order = scanner.nextInt();
+        System.out.println(getStringInRightOrder(str, order));
     }
 
     private static String fileToStr(File file) throws IOException{
@@ -95,5 +99,21 @@ public class App {
         }
         stack.forEach((String strLine) -> reverseStr.append(strLine));
         return reverseStr.toString();
+    }
+
+    private static String getStringInRightOrder(String str, int order) {
+        StringBuilder res = new StringBuilder();
+        String[] strings = str.split("\n");
+        int countOfDigits = String.valueOf(order).length();
+        int[] orderArr = new int[countOfDigits];
+        for (int i = countOfDigits; i > 0; i--) {
+            int powCount = (int)Math.pow(10, i - 1);
+            orderArr[countOfDigits - i] = order / powCount;
+            order -= orderArr[countOfDigits - i] * powCount;
+        }
+        for (int line : orderArr) {
+            res.append(String.format("%s\n", strings[line - 1]));
+        }
+        return res.toString();
     }
 }
