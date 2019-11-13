@@ -40,4 +40,13 @@ public class CollectionUtils {
     public static <T> boolean containsAll(List<? extends T> c1, List<? extends T> c2) {
         return c1.containsAll(c2);
     }
+
+    public static <T> boolean containsAny(List<? extends T> c1, List<? extends T> c2) {
+        for (T el : c2) {
+            if (c1.contains(el)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
