@@ -28,4 +28,8 @@ public class CollectionUtils {
         }
         return list;
     }
+
+    public static <T> void add(List<? super T> source, T o) {
+        source.add(o);
+    }
 }
