@@ -1,7 +1,5 @@
 package com.sbt.javaschool.rnd.lesson4;
 
-import javafx.util.Pair;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -39,7 +37,7 @@ public class MyCountMap<T> implements CountMap<T> {
     }
 
     @Override
-    public Map toMap() {
+    public Map<T, Integer> toMap() {
         return map;
     }
 
