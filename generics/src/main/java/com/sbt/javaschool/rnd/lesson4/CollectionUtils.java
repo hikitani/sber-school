@@ -36,4 +36,8 @@ public class CollectionUtils {
     public static <T> void removeAll(List<? super T> removeFrom, List<? extends T> c2) {
         removeFrom.removeAll(c2);
     }
+
+    public static <T> boolean containsAll(List<? extends T> c1, List<? extends T> c2) {
+        return c1.containsAll(c2);
+    }
 }
