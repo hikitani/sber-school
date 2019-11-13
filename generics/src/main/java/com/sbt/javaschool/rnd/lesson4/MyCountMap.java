@@ -11,36 +11,40 @@ public class MyCountMap<T> implements CountMap<T> {
 
     @Override
     public void add(T o) {
-
+        map.put(o, map.containsKey(o) ? map.get(o) + 1 : 1);
     }
 
     @Override
     public int getCount(T o) {
-        return 0;
+        return map.get(o);
     }
 
     @Override
     public int remove(T o) {
-        return 0;
+        int count = map.get(o);
+        map.remove(o);
+        return count;
     }
 
     @Override
     public int size() {
-        return 0;
+        return map.size();
     }
 
     @Override
-    public void addAll(CountMap source) {
-
+    public void addAll(CountMap<T> source) {
+        source.toMap().forEach((key, value) -> {
+            map.put(key, map.containsKey(key) ? map.get(key) + value : 1);
+        });
     }
 
     @Override
     public Map toMap() {
-        return null;
+        return map;
     }
 
     @Override
-    public void toMap(Map destination) {
-
+    public void toMap(Map<T, Integer> destination) {
+        destination.putAll(map);
     }
 }
