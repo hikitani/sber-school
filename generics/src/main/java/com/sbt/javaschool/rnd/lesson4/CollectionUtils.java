@@ -32,4 +32,8 @@ public class CollectionUtils {
     public static <T> void add(List<? super T> source, T o) {
         source.add(o);
     }
+
+    public static <T> void removeAll(List<? super T> removeFrom, List<? extends T> c2) {
+        removeFrom.removeAll(c2);
+    }
 }
