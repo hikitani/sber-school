@@ -16,4 +16,16 @@ public class CollectionUtils {
     public static <T> int indexOf(List<? extends T> source, T o) {
         return source.indexOf(o);
     }
+
+    public static <T> List<T> limit(List<? extends T> source, int size) {
+        List<T> list = new LinkedList<>();
+        if (size > source.size()) {
+            list.addAll(source);
+        } else {
+            for (int i = 0; i < size; i++) {
+                list.add(source.get(i));
+            }
+        }
+        return list;
+    }
 }
