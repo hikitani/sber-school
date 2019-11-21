@@ -2,19 +2,17 @@ package com.sbt.javaschool.rnd.lesson6;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
-import java.security.spec.EncodedKeySpec;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class BeanUtils {
 
-    private static enum EncapsulateType {GETTER, SETTER};
+    private enum EncapsulateType {GETTER, SETTER};
 
     public static <T, E extends T> void assign(T to, E from){
-        List<Method> fromGetters = getGetterMethods(from);
-        List<Method> toSetters = getSetterMethods(to);
+        List<Method> fromGetters = getEncapsulateMethods(from, EncapsulateType.GETTER);
+        List<Method> toSetters = getEncapsulateMethods(to, EncapsulateType.SETTER);
         for (Method toSetter : toSetters) {
             List<Method> correspondingGetters = fromGetters.stream().filter(fromGetter -> {
                 return methodTofieldName(fromGetter, EncapsulateType.GETTER)
@@ -36,30 +34,33 @@ public class BeanUtils {
         }
     }
 
-    private static <T> List<Method> getGetterMethods(T instance) {
-        return Arrays.stream(instance.getClass().getMethods()).filter(method -> {
-            if (method.getName().matches("^(get|is)\\w+")) {
-                String methodName = methodTofieldName(method, EncapsulateType.GETTER);
-                return method.getParameterCount() == 0 &&
-                        Arrays.stream(instance.getClass().getDeclaredFields()).filter(field -> {
-                            return field.getName().equals(methodName);
-                        }).count() == 1;
-            }
-            return false;
-        }).collect(Collectors.toList());
-    }
-
-    private static <T> List<Method> getSetterMethods(T instance) {
-        return Arrays.stream(instance.getClass().getMethods()).filter(method -> {
-            if (method.getName().matches("^set\\w+")) {
-                String methodName = methodTofieldName(method, EncapsulateType.SETTER);
-                return method.getParameterCount() == 1 &&
-                        Arrays.stream(instance.getClass().getDeclaredFields()).filter(field -> {
-                            return field.getName().equals(methodName);
-                        }).count() == 1;
-            }
-            return false;
-        }).collect(Collectors.toList());
+    private static <T> List<Method> getEncapsulateMethods(T instance, EncapsulateType type) {
+        switch (type) {
+            case GETTER:
+                return Arrays.stream(instance.getClass().getMethods()).filter(method -> {
+                    if (method.getName().matches("^(get|is)\\w+")) {
+                        String methodName = methodTofieldName(method, type);
+                        return method.getParameterCount() == 0 &&
+                                Arrays.stream(instance.getClass().getDeclaredFields()).filter(field -> {
+                                    return field.getName().equals(methodName);
+                                }).count() == 1;
+                    }
+                    return false;
+                }).collect(Collectors.toList());
+            case SETTER:
+                return Arrays.stream(instance.getClass().getMethods()).filter(method -> {
+                    if (method.getName().matches("^set\\w+")) {
+                        String methodName = methodTofieldName(method, type);
+                        return method.getParameterCount() == 1 &&
+                                Arrays.stream(instance.getClass().getDeclaredFields()).filter(field -> {
+                                    return field.getName().equals(methodName);
+                                }).count() == 1;
+                    }
+                    return false;
+                }).collect(Collectors.toList());
+            default:
+                throw new IllegalArgumentException();
+        }
     }
 
     private static String methodTofieldName(Method method, EncapsulateType type) {
