@@ -34,10 +34,7 @@ public class App
         System.out.println("\nКласс Class:");
         for (Method method : classClass.getMethods()) {
             if (method.getName().matches("get\\w+")) {
-                String retType = method.getName().substring(3);
-                if (retType == method.getReturnType().getSimpleName()) {
-                    System.out.println(method.getName());
-                }
+                System.out.println(method.getName());
             }
         }
 
@@ -52,9 +49,16 @@ public class App
             }
         }
 
+        // dynamic proxy
         Calculator calculator = ProxyUtils.makeCached(new CalculatorImpl());
         System.out.println(calculator.calculate(4));
         System.out.println(calculator.calculate(4));
+
+        // homework
+        Person personTo = new Person();
+        Person personFrom = new Person("Иван", "Иванов", 29, true);
+        BeanUtils.assign(personTo, personFrom);
+
     }
 
     public static <T> String getSuperClasses(Class<T> meta) {
